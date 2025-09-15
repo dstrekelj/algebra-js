@@ -13,14 +13,20 @@
 
 const inputName = prompt("Unesite ime:");
 
-if (inputName === '') {
+const text = inputName.trim();
+
+if (text === '') {
     alert("Niste unijeli ime");
+} else if (!isNaN(parseInt(text))) {
+    alert("Ime ne smije biti broj");
+} else if (text.trim() === '') {
+    alert("Ime ne smije biti prazno");
 } else {
     let vowels = '';
     let consonants = '';
 
-    for (let i = 0; i < inputName.length; i++) {
-        const char = inputName[i].toLowerCase();
+    for (let i = 0; i < text.length; i++) {
+        const char = text[i].toLowerCase();
 
         if (['a', 'e', 'i', 'o', 'u'].includes(char)) {
             vowels += char;
@@ -29,7 +35,25 @@ if (inputName === '') {
         }
     }
 
-    alert("Ime: " + inputName + ". Samoglasnici su: " + vowels + ", Suglasnici su: " + consonants);
+    let vowelsText = vowels.length > 0 ? 'Samoglasnici su: ' + vowels : 'Nema samoglasnika';
+    let consonantsText = consonants.length > 0 ? 'Suglasnici su: ' + consonants : 'Nema suglasnika';
+
+    alert("Ime: " + text + ". " + vowelsText + ", " + consonantsText);
+
+    const plain = "abcćčdđefghijklmnoprsštuvzž";
+    const cypher = "ćčdđefghijklmnoprsštuvzžabc";
+
+    const plaintext = text.toLowerCase();
+    let cyphertext = "";
+
+    for (let i = 0; i < plaintext.length; i++) {
+        const plainChar = plaintext[i];
+        const index = plain.indexOf(plainChar);
+        const cypherChar = cypher[index];
+        cyphertext += cypherChar;
+    }
+
+    alert("Cyphertext: " + cyphertext);
 }
 
 /**
