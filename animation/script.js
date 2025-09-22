@@ -2,9 +2,20 @@ function animation() {
     const box = document.querySelector('#box');
     box.style.position = 'relative';
     box.style.left = 0;
+    box.style.width = '100px';
+    box.style.height = '100px';
+    box.style.backgroundColor = 'red';
+
+    let direction = 1;
 
     function animateBox() {
-        box.style.left = parseFloat(box.style.left) + 1 + 'px';
+        box.style.left = parseFloat(box.style.left) + (100 * direction) + 'px';
+
+        if (parseFloat(box.style.left) >= (window.innerWidth - 100)) {
+            direction = -1;
+        } else if (parseFloat(box.style.left) <= 0) {
+            direction = 1;
+        }
     }
 
     setInterval(animateBox, 100);
@@ -13,9 +24,6 @@ function animation() {
 animation();
 
 /**
- * 1. Promijenite box.style property tako da box bude
- * 1a. 100px x 100px
- * 1b. crvene boje pozadine
  * 2. Promijenite logiku animiranja boxa (animateBox() funkcija) tako da
  * 2a. Box dolazi do desnog ruba prozora (window)
  * 2b. Kada dođe do desnog ruba, vraća se natrag na početak (lijevi rub)
