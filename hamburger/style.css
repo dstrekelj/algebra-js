@@ -1,0 +1,12 @@
+#hamburger {
+  background: green;
+}
+#hamburger.button-active {
+  background: red;
+}
+#nav {
+  display: none;
+}
+#nav.nav-open {
+  display: block;
+}
