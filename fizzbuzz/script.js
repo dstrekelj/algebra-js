@@ -56,3 +56,61 @@ while (k <= 15) {
     console.log(text === '' ? k : text);
     k++;
 }
+
+/**
+ * Vratite se u zadatak kojeg ste već radili: FIZZBUZZ
+ * 
+ * Doradite FizzBuzz tako da:
+ * 1. Napišete funkciju koja se zove fizzBuzz()
+ * 2. Funkcija prima četiri parametra:
+ * 2a. "start" - početni broj (npr. 1)
+ * 2b. "end" - završni broj (npr. 100)
+ * 2c. "fizzNum" - broj za koji će se ispisati "Fizz" (npr. 3)
+ * 2d. "buzzNum" - broj za koji će se ispisati "Buzz" (npr. 5)
+ * 3. Funkcija ispisuje brojeve od "start" do "end"
+ * 4. Za brojeve djeljive sa "fizzNum", ispišite "Fizz" umjesto broja.
+ * 5. Za brojeve djeljive sa "buzzNum", ispišite "Buzz" umjesto broja.
+ * 6. Za brojeve djeljive sa oba, ispišite "FizzBuzz".
+ * 7. Za ostale brojeve, ispišite sam broj.
+ * 
+ * Pozovite funkciju fizzBuzz() koristeći parametre koje pročitate preko prompt()
+ * od korisnika.
+ */
+
+function fizzBuzz(start, end, fizzNum, buzzNum) {
+    const body = document.body;
+
+    const ul = document.createElement('ul');
+    body.appendChild(ul);
+
+    const div = document.createElement('div');
+    body.appendChild(div);
+
+    let i = start;
+
+    const counter = {};
+
+    while (i <= end) {
+        let text = '';
+
+        if (i % fizzNum === 0) text += 'Fizz';
+        if (i % buzzNum === 0) text += 'Buzz';
+
+        if (counter[text] === undefined) {
+            counter[text] = 1;
+        } else {
+            counter[text]++;
+        }
+
+        const li = document.createElement('li');
+        li.textContent = text === '' ? i : text;
+        ul.appendChild(li);
+
+        i++;
+    }
+
+    console.log(counter);
+}
+
+console.log("...")
+fizzBuzz(1, 15, 2, 7)

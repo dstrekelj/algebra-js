@@ -37,23 +37,3 @@ function readNumber(text = "Unesite broj:") {
     const numberValue = parseFloat(numberInput);
     return numberValue;
 }
-
-/**
- * Vratite se u zadatak kojeg ste već radili: FIZZBUZZ
- * 
- * Doradite FizzBuzz tako da:
- * 1. Napišete funkciju koja se zove fizzBuzz()
- * 2. Funkcija prima četiri parametra:
- * 2a. "start" - početni broj (npr. 1)
- * 2b. "end" - završni broj (npr. 100)
- * 2c. "fizzNum" - broj za koji će se ispisati "Fizz" (npr. 3)
- * 2d. "buzzNum" - broj za koji će se ispisati "Buzz" (npr. 5)
- * 3. Funkcija ispisuje brojeve od "start" do "end"
- * 4. Za brojeve djeljive sa "fizzNum", ispišite "Fizz" umjesto broja.
- * 5. Za brojeve djeljive sa "buzzNum", ispišite "Buzz" umjesto broja.
- * 6. Za brojeve djeljive sa oba, ispišite "FizzBuzz".
- * 7. Za ostale brojeve, ispišite sam broj.
- * 
- * Pozovite funkciju fizzBuzz() koristeći parametre koje pročitate preko prompt()
- * od korisnika.
- */

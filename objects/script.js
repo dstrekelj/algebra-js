@@ -102,3 +102,28 @@ function listAppointmentsByDate(appointments) {
 
     alert(`Zakazani pregledi za ${dateInput}:\n` + names.join(", "));
 }
+
+/**
+ * VJEŽBA:
+ * U novoj mapi koja se zove "character-counter" napravite program koji radi sljedeće:
+ * 1. Omogućuje korisniku unos teksta (preko prompta)
+ * 2. Broji koliko se puta pojavljuje svaki znak u unesenom tekstu
+ * 3. Ispisuje rezultate u obliku:
+ * A: 3
+ * B: 5
+ * C: 1
+ * ...
+ * 4. Ignorira razmake i ne pravi razliku između velikih i malih slova (npr. A i a se računaju kao isti znak)
+ * 5. Program se ponavlja dok korisnik ne odluči izaći (npr. unosom praznog teksta)
+ * 
+ * BITNO:
+ * - Koristite objekt za pohranu broja ponavljanja svakog znaka
+ * - Koristite for petlju za prolazak kroz svaki znak unesenog teksta
+ * 
+ * const o = {};
+ * let nekaVarijabla = "a";
+ * 
+ * o.a = 1;
+ * o["a"] = 1;
+ * o[nekaVarijabla] = 1;
+ */
