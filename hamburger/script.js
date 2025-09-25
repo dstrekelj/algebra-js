@@ -19,3 +19,23 @@ hamburger();
  * Doradite CSS tako da link sa klasom "active"
  * ima crvenu boju teksta.
  */
+
+function activeLink() {
+    const links = document.querySelectorAll('#nav a');
+
+    links.forEach(function (link) {
+        if (link.getAttribute('href') === '#home') {
+            link.classList.add('active');
+        }
+    });
+
+    /*
+    const link = document.querySelector('#nav a[href="#home"]');
+    
+    if (link) {
+        link.classList.add('active');
+    }
+    */
+}
+
+activeLink();

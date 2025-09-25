@@ -10,3 +10,6 @@
 #nav.nav-open {
   display: block;
 }
+a.active {
+  color: red;
+}
