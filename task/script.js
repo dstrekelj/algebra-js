@@ -1,4 +1,11 @@
-/**
- * 1. U HTML dodajte obrazac s jednim text input poljem i dugmetom za submit.
- * 2. Kada se obrazac pošalje (submit), vrijednost u text input treba biti ispisana na stranici ispod obrasca.
- */
+(function () {
+    const form = document.querySelector("#form");
+    const input = document.querySelector("#task");
+    const output = document.querySelector("#output");
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const task = input.value;
+        output.innerHTML += `<p>${task}</p>`;
+    });
+})();
