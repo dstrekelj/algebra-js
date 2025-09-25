@@ -17,11 +17,34 @@
 
 (function () {
     class Task {
-        constructor(name) { this.name = name; }
-        toHtml() { return `<p>TASK: ${this.name}</p>`; }
+        constructor(name) {
+            this.name = name;
+        }
+
+        toHtml() {
+            return `<p>TASK: ${this.name}</p>`;
+        }
     }
 
-    const tasks = [];
+    class TaskList {
+        constructor() {
+            this.tasks = [];
+        }
+
+        addTask(task) {
+            this.tasks.push(task);
+        }
+
+        render(element) {
+            element.innerHTML = '';
+            for (let i = 0; i < this.tasks.length; i++) {
+                element.innerHTML += this.tasks[i].toHtml();
+            }
+        }
+    }
+
+    const taskList = new TaskList();
+
     const form = document.querySelector("#form");
     const input = document.querySelector("#task");
     const output = document.querySelector("#output");
@@ -40,12 +63,8 @@
     form.addEventListener("submit", function (event) {
         event.preventDefault();
         const task = new Task(input.value.trim());
-        tasks.push(task);
-
-        output.innerHTML = '';
-        for (let i = 0; i < tasks.length; i++) {
-            output.innerHTML += tasks[i].toHtml();
-        }
+        taskList.addTask(task);
+        taskList.render(output);
 
         if (task.name !== '') {
             input.value = '';
