@@ -35,8 +35,16 @@
         }
 
         update() {
-            this.x += 10;
-            this.y += 10;
+            const randomX = Math.random();
+            const randomY = Math.random();
+
+            this.x += this.width * (randomX > 0.5 ? 1 : -1);
+            this.y += this.height * (randomY > 0.5 ? 1 : -1);
+
+            this.x = Math.min(this.x, window.innerWidth - this.width);
+            this.x = Math.max(this.x, 0);
+            this.y = Math.min(this.y, window.innerHeight - this.height);
+            this.y = Math.max(this.y, 0);
         }
     }
 
@@ -51,5 +59,5 @@
         body.innerHTML = '';
         player.render(body);
         obstacle.render(body);
-    }, 1000 / 10);
+    }, 1000 / 2);
 })();
