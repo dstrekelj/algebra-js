@@ -1,20 +1,3 @@
-/**
- * Napravite klasu TaskList koja:
- * - se konstruira sa praznim nizom "tasks"
- * - koja ima metodu addTask() koja
- *  prima Task objekt kao parametar,
- *  sprema ga u niz "tasks"
- * - koja ima metodu render() koja
- *  prima HTML element kao parametar,
- *  briše njegov sadržaj,
- *  ispisuje sve taskove iz "tasks"
- * 
- * Konstruirajte klasu TaskList i spremite u konstantu "taskList".
- * 
- * Na submit obrasca dodajte kreirani task u TaskList pomoću metode addTask()
- * i pozovite metodu render() da ispišete sve taskove
- */
-
 (function () {
     class App {
         constructor(element) {
@@ -43,10 +26,12 @@
 
         render() {
             this.element.innerHTML = '';
-            this.element.appendChild(document.createTextNode('Open Tasks:'));
-            this.element.appendChild(this.openTaskList.render());
-            this.element.appendChild(document.createTextNode('Completed Tasks:'));
-            this.element.appendChild(this.completedTaskList.render());
+            this.element.append(
+                document.createTextNode('Open Tasks:'),
+                this.openTaskList.render(),
+                document.createTextNode('Completed Tasks:'),
+                this.completedTaskList.render()
+            );
         }
     }
 
@@ -58,13 +43,11 @@
         }
 
         complete() {
-            console.log('completing task', this.name);
             this.isCompleted = true;
             this.app.updateTask(this);
         }
 
         undo() {
-            console.log('undoing task', this.name);
             this.isCompleted = false;
             this.app.updateTask(this);
         }
@@ -80,7 +63,6 @@
             const button = document.createElement('button');
             button.innerText = this.isCompleted ? 'Undo' : 'Complete';
             button.addEventListener('click', () => {
-                console.log('button clicked', this.name);
                 if (!this.isCompleted) {
                     this.complete();
                 } else {
@@ -89,7 +71,6 @@
             });
 
             div.appendChild(button);
-            console.log(div);
 
             return div;
         }
@@ -120,6 +101,7 @@
     }
 
     const app = new App(document.querySelector("#output"));
+    app.render();
 
     const form = document.querySelector("#form");
     const input = document.querySelector("#task");
@@ -147,4 +129,76 @@
             submit.setAttribute('disabled', 'disabled');
         }
     });
+})();
+
+/**
+ * Napravite aplikaciju za upravljanje listom najdražih filmova.
+ * Aplikacija korisniku mora omogućiti:
+ * - Dodavanje novog filma u listu
+ * - Ocjenjivanje filma (1-10)
+ * - Ispis liste
+ * 
+ * Napravite klasu App koja će implementirati glavnu logiku aplikacije (ono što korisnik radi s aplikacijom).
+ * Napravite klasu Movie koja će predstavljati jedan film.
+ * Napravite klasu MovieList koja će predstavljati listu filmova.
+ * 
+ * Klase modelirajte (odredite im svojstva i metode) po volji.
+ * 
+ * NE MORATE RADITI OBRASCE AKO NE STIGNETE, MOŽETE KORISTIT prompt() ZA UNOS PODATAKA.
+ * (npr. stisnem dugme i otvori se prompt)
+ */
+
+(function () {
+    class App {
+        constructor(element) {
+            this.element = element;
+            this.movieList = new MovieList();
+        }
+
+        addMovie(name, rating) {
+            const movie = new Movie(name, rating);
+            this.movieList.add(movie);
+            this.render();
+        }
+
+        rateMovie(movie, rating) {
+            movie.rate(rating);
+            this.render();
+        }
+
+        render() { }
+    }
+
+    class Movie {
+        constructor(name, rating, app) {
+            this.name = name;
+            this.rating = rating;
+            this.app = app;
+        }
+
+        rate(rating) {
+            this.rating = rating;
+        }
+
+        render() {
+            const button = document.createElement('button');
+            button.innerText = `Rate ${this.name}`;
+            button.addEventListener('click', () => {
+                const newRating = prompt(`Rate ${this.name} (1-10):`, this.rating);
+                if (newRating !== null) {
+                    this.app.rateMovie(this, parseInt(newRating, 10));
+                }
+            });
+        }
+    }
+
+    class MovieList {
+        constructor() {
+            this.movies = [];
+        }
+
+        add(movie) {
+            this.movies.push(movie);
+        }
+    }
 })();
