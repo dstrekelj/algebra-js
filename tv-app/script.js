@@ -12,7 +12,13 @@
         console.log('input value', input.value);
 
         searchShows(input.value)
-            .then((shows) => console.log('Shows', shows));
+            .then((shows) => {
+                resultsDiv.innerHTML = '';
+                shows.forEach((show) => {
+                    const showDiv = show.render();
+                    resultsDiv.appendChild(showDiv);
+                });
+            });
     });
 
     function searchShows(query) {
@@ -29,11 +35,26 @@
     class Show {
         constructor(data) {
             this.name = data.show.name;
+            this.summary = data.show.summary;
+            this.thumbnail = data.show.image ? data.show.image.medium : '';
         }
 
         render() {
             const div = document.createElement('div');
-            div.textContent = this.name;
+
+            if (this.thumbnail !== '') {
+                const img = document.createElement('img');
+                img.src = this.thumbnail;
+                div.appendChild(img);
+            }
+
+            const nameDiv = document.createElement('div');
+            nameDiv.textContent = this.name;
+            div.appendChild(nameDiv);
+
+            const summaryDiv = document.createElement('div');
+            summaryDiv.innerHTML = this.summary;
+            div.appendChild(summaryDiv);
 
             return div;
         }
