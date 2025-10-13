@@ -41,22 +41,37 @@
     }
 
     class App {
-        constructor() { }
+        constructor(element) {
+            this.element = element;
+            this.episodes = [];
+        }
 
-        renderSchedule() {
+        renderSchedule(showName) {
+            this.element.innerHTML = '';
+
             fetch('https://api.tvmaze.com/schedule/full')
                 .then(response => response.json())
                 .then(data => {
-                    data.map(episodeData => Episode.fromResponse(episodeData))
+                    this.episodes = data.map(episodeData => Episode.fromResponse(episodeData));
+
+                    this.episodes
                         .filter(episode => {
                             const today = new Date();
 
-                            return episode.isAiring(today);
+                            if (!episode.isAiring(today)) {
+                                return false;
+                            }
+
+                            if (!showName) {
+                                return true;
+                            }
+
+                            return episode.showName.toLowerCase().includes(showName.toLowerCase());
                         })
                         .forEach(episode => {
                             const episodeElement = episode.render();
 
-                            document.body.appendChild(episodeElement);
+                            this.element.appendChild(episodeElement);
                         });
                 })
                 .catch(error => {
@@ -65,7 +80,15 @@
         }
     }
 
-    const app = new App();
+    const appElement = document.getElementById('app');
+    const app = new App(appElement);
     app.renderSchedule();
 
+    const filterForm = document.getElementById('filter-form');
+    filterForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const showName = filterForm.querySelector('[name="showName"]').value;
+        app.renderSchedule(showName);
+    });
 })();
