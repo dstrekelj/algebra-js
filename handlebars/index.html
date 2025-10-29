@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Include Handlebars from a CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  </head>
+  <body>
+    <script>
+      const users = [
+        { id: 1, name: "Ivo" },
+        { id: 2, name: "Pero" },
+        { id: 3, name: "Ana" },
+      ];
+
+      const template = `
+        <ul>
+          {{#each users}}
+            <li class="js-item" data-id="{{this.id}}">User: {{this.name}}</li>
+          {{/each}}
+        </ul>
+        `;
+
+      const compiledTemplate = Handlebars.compile(template);
+      const result = compiledTemplate({ users });
+      document.body.innerHTML = result;
+
+      const items = document.querySelectorAll(".js-item");
+      items.forEach((item) => {
+        item.addEventListener("click", () => {
+          const userId = item.getAttribute("data-id");
+          const user = users.find((n) => n.id == userId);
+          alert(`You clicked on ${user.name}`);
+        });
+      });
+    </script>
+  </body>
+</html>
